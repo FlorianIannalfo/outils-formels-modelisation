@@ -1,4 +1,4 @@
-mport PetriKit
+import PetriKit
 
 public class MarkingGraph {
 
