@@ -19,6 +19,18 @@ public func createModel() -> PTNet {
 
 //TRANSITIONS
 
+   let tw1 = PTTransition(
+      named         : "tw1",
+      preconditions : [PTArc(place: s1)],
+      postconditions: [PTArc(place: w1)])
+    let tw2 = PTTransition(
+      named         : "tw2",
+      preconditions : [PTArc(place: s2)],
+      postconditions: [PTArc(place: w2)])
+    let tw3 = PTTransition(
+      named         : "tw3",
+      preconditions : [PTArc(place: s3)],
+      postconditions: [PTArc(place: w3)])
     let tpt = PTTransition(
       named         : "tpt",
       preconditions : [PTArc(place: r)],
@@ -43,19 +55,7 @@ public func createModel() -> PTNet {
       named         : "ts3",
       preconditions : [PTArc(place: t), PTArc(place: m), PTArc(place: w3)],
       postconditions: [PTArc(place: s3), PTArc(place: r)])
-    let tw1 = PTTransition(
-      named         : "tw1",
-      preconditions : [PTArc(place: s1)],
-      postconditions: [PTArc(place: w1)])
-    let tw2 = PTTransition(
-      named         : "tw2",
-      preconditions : [PTArc(place: s2)],
-      postconditions: [PTArc(place: w2)])
-    let tw3 = PTTransition(
-      named         : "tw3",
-      preconditions : [PTArc(place: s3)],
-      postconditions: [PTArc(place: w3)])
-
+   
     return PTNet(
       places: [w1,w2,w3,s1,s2,s3,r,p,t,m],
       transitions: [tw1,tw2,tw3,tpt,tpm,ttm,ts1,ts2,ts3]
