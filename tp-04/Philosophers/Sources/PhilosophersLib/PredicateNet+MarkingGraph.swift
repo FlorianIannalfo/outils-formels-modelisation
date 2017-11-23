@@ -13,31 +13,27 @@ extension PredicateNet {
         // You may use these methods to check if you've already visited a marking, or if the model
         // is unbounded.
 
-
-        let first = PredicateMarkingNode<T>(marking: marking) //initialisation
-        var Avisiter: [PredicateMarkingNode<T>] = [first]
-        while(!Avisiter.isEmpty){ //tant qu'il y a des noeuds a visité faire tourner la boucle
-         //stocker l'element courrant dans une variable
-        let current = Avisiter.popLast()!
-         // Pour toutes transitions
-        for t in transitions{
-         current.successors[t] = [:] //sucesseurs
-        let bindings: [PredicateTransition<T>.Binding] = t.fireableBingings(from: current.marking)
-        for y in bindings{
-        //Début avec M courant
-        let Mprime = PredicateMarkingNode(marking: t.fire(from: current.marking, with:y)!)
-
-        for x in first{
-        // Si M' > que M
-             if (PredicateNet.greater(Mprime.marking, x.marking)){
+   
+        let initial = PredicateMarkingNode<T>(marking: marking)
+        var nodeToVisit: [PredicateMarkingNode<T>] = [initial]
+        while(!nodeToVisit.isEmpty){
+ 
+        let cur = nodeToVisit.popLast()!
+        for tran in transitions {
+        cur.successors[tran] = [:]
+        let bindings: [PredicateTransition<T>.Binding] = tran.fireableBingings(from: cur.marking)
+        for bind in bindings{
+        let newMarking = PredicateMarkingNode(marking: tran.fire(from: cur.marking, with:bind)!)
+              
+        for i in initial{
+             if (PredicateNet.greater(newMarking.marking, i.marking)){
              return nil }}
-
-             if let Dejavisite = first.first(where:{PredicateNet.equals($0.marking, Mprime.marking)}){//Si déja visité
-             current.successors[t]![y] = Dejavisite  //ajout à la liste de noeud
-            }else if(!Avisiter.contains(where: { PredicateNet.equals($0.marking, Mprime.marking) })) {
-             Avisiter.append(Mprime)
-             current.successors[t]![y] = Mprime }}}}
-        return first
+             if let knownMarking = initial.first(where:{PredicateNet.equals($0.marking,             newMarking.marking)}){
+             cur.successors[tran]![bind] = knownMarking
+            }else if(!nodeToVisit.contains(where: { PredicateNet.equals($0.marking, newMarking.marking) })) {
+             nodeToVisit.append(newMarking)
+             cur.successors[tran]![bind] = newMarking }}}}
+        return initial
     }
 
 

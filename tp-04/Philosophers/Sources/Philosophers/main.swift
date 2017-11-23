@@ -43,10 +43,16 @@ do {
 
 print()
 
-do {
-    let philosophers = lockFreePhilosophers(n: 3)
-    // let philosophers = lockablePhilosophers(n: 3)
-    for m in philosophers.simulation(from: philosophers.initialMarking!).prefix(10) {
-        print(m)
-    }
-}
+do {let philosophers = lockFreePhilosophers(n: 3)
+  for i in philosophers.simulation(from: philosophers.initialMarking!).prefix(10) {
+  print(i)}}
+do{let philosophers = lockFreePhilosophers(n: 5)                                //1.)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  print("\(graph!.count)")}
+do{let philosophers = lockablePhilosophers(n: 5)                                //2.)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  print("\(graph!.count)")}
+do {let philosophers = lockablePhilosophers(n: 5)                                //3.)
+  let graph = philosophers.markingGraph(from: philosophers.initialMarking!)
+  for m in graph! {
+  print("\(m.marking)")}}
