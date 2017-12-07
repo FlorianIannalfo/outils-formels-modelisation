@@ -1,11 +1,39 @@
 import ProofKitLib
-
+do{     		//Formules d'exercices de l'exercice 9 (fait en classe) pour test
+  let a: Formula = "a"
+  let b: Formula = "b"
+  let c: Formula = "c"
+//Exercice 2.1
+  let f = !(a && (b || c))
+  print("Resultat: \(f)")
+  print(f.nnf)//NNF
+  print(f.cnf)//CNF
+  print(f.dnf)}//DNF
+do{
+  let a: Formula = "a"
+  let b: Formula = "b"
+  let c: Formula = "c"
+//Exercice 2.2
+  let f = (a => b) || !(a && c)
+  print("Resultat: \(f)")
+  print(f.nnf)//NNF
+  print(f.cnf)//CNF
+  print(f.dnf)}//DNF
+do{
+  let a: Formula = "a"
+  let b: Formula = "b"
+  let c: Formula = "c"
+//Exercice 2.3
+let f = (!a || b && c) && a
+  print("Resultat: \(f)")
+  print(f.nnf)//NNF
+  print(f.cnf)//CNF
+  print(f.dnf)//DNF
+}
 let a: Formula = "a"
 let b: Formula = "b"
 let f = a && b
-
 print(f)
-
 let booleanEvaluation = f.eval { (proposition) -> Bool in
     switch proposition {
         case "p": return true
